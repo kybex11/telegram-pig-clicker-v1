@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 
 export function App() {
   const [clicks, setClicks] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   function handleClick() {
     setClicks(prevClicks => {
@@ -14,11 +15,27 @@ export function App() {
   }
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
     const clicksFromCookie = Cookies.get('clicks');
     if (clicksFromCookie) {
       setClicks(parseInt(clicksFromCookie, 10));
     }
+
+    return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return (
+      <>
+        <div className="loadingScreen">
+          <h1>coming soon...</h1>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
