@@ -36,3 +36,82 @@ body {
     cursor: pointer;
     font-size: 10rem;
 }
+
+.loadingScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.pig {
+    font-size: 10rem;
+    margin: 0;
+}
+
+.centered-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+.centered-div h1,
+.centered-div h2 {
+    margin: 10px 0;
+}
+
+.centered-div h1 {
+    font-size: 5rem;
+}
+
+.centered-div h2 {
+    font-size: 2.5rem;
+    margin: 10px 0 0 0;
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+.bottom-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    background-color: #6F6F6F;
+    border-radius: 17px;
+    padding: 10px;
+}
+
+.bottom-div-divs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #383838;
+    border-radius: 16px;
+    margin: 10px;
+    padding: 5px 44px 5px 44px;
+}
+
+.bottom-div-divs h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.bottom-div-divs h6 {
+    margin: 5px 0 0 0;
+    font-size: 0.8rem;
+    color: white;
+}
