@@ -1,22 +1,43 @@
 import './assets/Main.scss';
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import Cookies from 'js-cookie';
 
 export function App() {
   const [clicks, setClicks] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [perTap, setPerTap] = useState<number>(1);
-  const [perHour, setPerHour] = useState<number>(0);
+  const [perHour, setPerHour] = useState<number>(2);
+  const [roundedClicks, setRoundedClicks] = useState<number>(0);
+  
+  const clicksRef = useRef(clicks);
 
   function handleClick() {
     setClicks(prevClicks => {
       const newClicks = prevClicks + perTap;
       Cookies.set('clicks', newClicks.toString(), { expires: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 });
+      clicksRef.current = newClicks; 
       return newClicks;
     });
   }
 
   useEffect(() => {
+    clicksRef.current = clicks;
+    
+    if (perHour > 0) {
+      const loop = () => {
+        setTimeout(() => {
+          setClicks(prevClicks => {
+            const newClicks = prevClicks + perHour / 3600;
+            clicksRef.current = newClicks; 
+            Cookies.set('clicks', newClicks.toString(), { expires: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 });
+            return newClicks;
+          });
+          loop();
+        }, 1000); 
+      }
+      loop();
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 5000);
@@ -47,7 +68,7 @@ export function App() {
   return (
     <>
       <div className="clicks-view">
-        <h1>⚡{clicks}</h1>
+        <h1>⚡{Math.floor(clicks)}</h1>
       </div>
       <div className="click-radius">
         <button onClick={handleClick}>🐷</button>
@@ -56,7 +77,7 @@ export function App() {
         <div className="bottom-div">
           <div className="bottom-div-divs">
             <h5>per hour</h5>
-            <h6>⚡0</h6>
+            <h6>⚡{perHour}</h6>
           </div>
           <div className="bottom-div-divs">
             <h5>per tap</h5>
