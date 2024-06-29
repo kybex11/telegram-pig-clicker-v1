@@ -115,3 +115,69 @@ body {
     font-size: 0.8rem;
     color: white;
 }
+
+.upgrade-button {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px 0 0 5px;
+    font-size: 1.2em;
+    z-index: 1000;
+    white-space: nowrap;
+    /* Ensure text does not wrap */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+}
+
+.upgrade-button span {
+    display: block;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+}
+
+.upgrade {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #333;
+    padding: 20px;
+    z-index: 1001;
+    box-sizing: border-box;
+}
+
+.main-button {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    font-size: 1.2em;
+    z-index: 1000;
+    white-space: nowrap;
+    /* Ensure text does not wrap */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+}
+
+.main-button span {
+    display: block;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+}

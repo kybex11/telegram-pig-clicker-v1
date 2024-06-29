@@ -1,23 +1,28 @@
 import './assets/Main.scss';
 import { useState, useEffect, useRef } from 'preact/hooks';
 import Cookies from 'js-cookie';
+import { Upgrade } from './components/upgrade';
 
 export function App() {
   const [clicks, setClicks] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [perTap, setPerTap] = useState<number>(1);
-  const [perHour, setPerHour] = useState<number>(2);
-  const [roundedClicks, setRoundedClicks] = useState<number>(0);
+  const [perHour, setPerHour] = useState<number>(0);
+  const [showUpgrade, setShowUpgrade] = useState<boolean>(false);
   
   const clicksRef = useRef(clicks);
 
   function handleClick() {
     setClicks(prevClicks => {
       const newClicks = prevClicks + perTap;
-      Cookies.set('clicks', newClicks.toString(), { expires: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 });
+      Cookies.set('clicks', newClicks.toString(), { expires: 365 });
       clicksRef.current = newClicks; 
       return newClicks;
     });
+  }  
+
+  const toggleUpgrade = () => {
+    setShowUpgrade((prevState) => !prevState);
   }
 
   useEffect(() => {
@@ -29,7 +34,7 @@ export function App() {
           setClicks(prevClicks => {
             const newClicks = prevClicks + perHour / 3600;
             clicksRef.current = newClicks; 
-            Cookies.set('clicks', newClicks.toString(), { expires: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 });
+            Cookies.set('clicks', newClicks.toString(), { expires: 365 });
             return newClicks;
           });
           loop();
@@ -37,6 +42,8 @@ export function App() {
       }
       loop();
     }
+
+
 
     const timer = setTimeout(() => {
       setLoading(false);
@@ -65,9 +72,13 @@ export function App() {
     );
   }
 
-  return (
+  return ( 
     <>
-      <div className="clicks-view">
+      {showUpgrade ? (
+        <Upgrade/>
+      ) : (
+        <>
+        <div className="clicks-view">
         <h1>⚡{Math.floor(clicks)}</h1>
       </div>
       <div className="click-radius">
@@ -85,6 +96,13 @@ export function App() {
           </div>
         </div>
       </div>
+      </>
+      )}
+      <div className="upgrade-button" onClick={toggleUpgrade}>
+        <span>
+          {showUpgrade ? 'Main' : 'Upgrade'}
+        </span>
+      </div>      
     </>
   );
 }
