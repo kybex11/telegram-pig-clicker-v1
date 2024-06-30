@@ -22,19 +22,23 @@ export function App() {
     });
   }  
 
-  function setPerTapFunc(prev: number) {
+  function setPerTapFunc() {
     if (Math.floor(clicks) > perTapCount) {
       setClicks(clicks - perTapCount);
-      setPerTapCount(perTapCount * 2);
+      setPerTapCount(perTapCount * 1.00099);
       setPerTap(perTap + 1);
+      Cookies.set('perTap', perTap.toString(), { expires: 365 });
+      Cookies.set('perTapCount', perTapCount.toString(), { expires: 365 });
     }
   }
 
   function setPerHourFunc() {
     if (Math.floor(clicks) > perHourCount) {
       setClicks(clicks - perHourCount);
-      setPerHourCount(perHourCount * 2);
+      setPerHourCount(perHourCount * 1.00099);
       setPerHour(perHour + 1);
+      Cookies.set('perHour', perHour.toString(), { expires: 365 });
+      Cookies.set('perHourCount', perHourCount.toString(), { expires: 365 });
     }
   }
 
@@ -69,6 +73,22 @@ export function App() {
     const clicksFromCookie = Cookies.get('clicks');
     if (clicksFromCookie) {
       setClicks(parseInt(clicksFromCookie, 10));
+    }
+    const perTapFromCookie = Cookies.get('perTap');
+    if (perTapFromCookie) {
+      setPerTap(parseInt(perTapFromCookie, 10));
+    }
+    const perHourFromCookie = Cookies.get('perHour');
+    if (perHourFromCookie) {
+      setPerHour(parseInt(perHourFromCookie, 10));
+    }
+    const perTapCountFromCookie = Cookies.get('perTapCount');
+    if (perTapCountFromCookie) {
+      setPerTapCount(parseInt(perTapCountFromCookie, 10));
+    }
+    const perHourCountFromCookie = Cookies.get('perHourCount');
+    if (perHourCountFromCookie) {
+      setPerHourCount(parseInt(perHourCountFromCookie, 10));
     }
 
     return () => clearTimeout(timer);
