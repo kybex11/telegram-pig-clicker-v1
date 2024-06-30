@@ -64,8 +64,6 @@ export function App() {
       loop();
     }
 
-
-
     const timer = setTimeout(() => {
       setLoading(false);
     }, 5000);

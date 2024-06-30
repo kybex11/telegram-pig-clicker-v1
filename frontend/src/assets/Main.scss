@@ -148,11 +148,25 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #333;
     padding: 20px;
     z-index: 1001;
     box-sizing: border-box;
+}
+
+.upgrade button {
+    background: none;
+    color: white;
+    font-size: 1.5rem;
+    border: #fff 1 1 1;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.upgrade h1 {
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .main-button {

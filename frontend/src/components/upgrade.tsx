@@ -10,9 +10,12 @@ interface UpgradeComponentProps {
 export const Upgrade: React.FC<UpgradeComponentProps> = ({ perTap, perHour, taps, hours}) => {
   return (
     <div className="upgrade">
-      <h1>Upgrade Options</h1>
-      <button onClick={() => perTap(taps + 1)}>Buy per tap { Math.floor(taps) }</button>
-      <button onClick={() => perHour(hours + 1)}>Buy per hour { Math.floor(hours) }</button>
+      <h1>Cost { Math.floor(taps) }</h1>
+      <button onClick={() => perTap(taps + 1)}>Buy per tap</button>
+      <br />
+      <h1>Cost { Math.floor(hours) }</h1>
+      <button onClick={() => perHour(hours + 1)}>Buy per hour</button>
+      
     </div>
   );
 };
