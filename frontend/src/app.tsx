@@ -9,8 +9,9 @@ export function App() {
   const [perTap, setPerTap] = useState<number>(1);
   const [perHour, setPerHour] = useState<number>(0);
   const [showUpgrade, setShowUpgrade] = useState<boolean>(false);
-  
-  const clicksRef = useRef(clicks);
+  const [perHourCount, setPerHourCount] = useState<number>(500);
+  const [perTapCount, setPerTapCount] = useState<number>(2500);
+  const clicksRef = useRef(clicks); 
 
   function handleClick() {
     setClicks(prevClicks => {
@@ -20,6 +21,22 @@ export function App() {
       return newClicks;
     });
   }  
+
+  function setPerTapFunc(prev: number) {
+    if (Math.floor(clicks) > perTapCount) {
+      setClicks(clicks - perTapCount);
+      setPerTapCount(perTapCount * 2);
+      setPerTap(perTap + 1);
+    }
+  }
+
+  function setPerHourFunc() {
+    if (Math.floor(clicks) > perHourCount) {
+      setClicks(clicks - perHourCount);
+      setPerHourCount(perHourCount * 2);
+      setPerHour(perHour + 1);
+    }
+  }
 
   const toggleUpgrade = () => {
     setShowUpgrade((prevState) => !prevState);
@@ -74,17 +91,19 @@ export function App() {
 
   return ( 
     <>
+    <div className="clicks-view">
+    <h1>⚡{Math.floor(clicks)}</h1>
+    </div>
       {showUpgrade ? (
-        <Upgrade/>
+        <Upgrade perTap={setPerTapFunc} perHour={setPerHourFunc} taps={perTapCount} hours={perHourCount}/>
       ) : (
         <>
-        <div className="clicks-view">
-        <h1>⚡{Math.floor(clicks)}</h1>
-      </div>
       <div className="click-radius">
         <button onClick={handleClick}>🐷</button>
       </div>
-      <div className="footer centered-div">
+      </>
+      )}
+            <div className="footer centered-div">
         <div className="bottom-div">
           <div className="bottom-div-divs">
             <h5>per hour</h5>
@@ -96,8 +115,6 @@ export function App() {
           </div>
         </div>
       </div>
-      </>
-      )}
       <div className="upgrade-button" onClick={toggleUpgrade}>
         <span>
           {showUpgrade ? 'Main' : 'Upgrade'}
