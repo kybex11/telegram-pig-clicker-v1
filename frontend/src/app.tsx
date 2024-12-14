@@ -2,6 +2,7 @@ import './assets/Main.scss';
 import { useState, useEffect, useRef } from 'preact/hooks';
 import Cookies from 'js-cookie';
 import { Upgrade } from './components/upgrade';
+import Event from './components/event';
 
 export function App() {
   const [clicks, setClicks] = useState<number>(0);
@@ -11,6 +12,7 @@ export function App() {
   const [showUpgrade, setShowUpgrade] = useState<boolean>(false);
   const [perHourCount, setPerHourCount] = useState<number>(500);
   const [perTapCount, setPerTapCount] = useState<number>(2500);
+  const [messages, setMessages] = useState<string[]>([]);
   const clicksRef = useRef(clicks); 
 
   function handleClick() {
@@ -18,6 +20,7 @@ export function App() {
       const newClicks = prevClicks + perTap;
       Cookies.set('clicks', newClicks.toString(), { expires: 365 });
       clicksRef.current = newClicks; 
+      setMessages(prevMessages => [...prevMessages, `+1⚡`]);
       return newClicks;
     });
   }  
@@ -112,6 +115,9 @@ export function App() {
     <div className="clicks-view">
     <h1>⚡{Math.floor(clicks)}</h1>
     </div>
+      {messages.map((msg, index) => {
+        return <Event text={msg}/>;
+      })}
       {showUpgrade ? (
         <Upgrade perTap={setPerTapFunc} perHour={setPerHourFunc} taps={perTapCount} hours={perHourCount}/>
       ) : (
